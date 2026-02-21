@@ -2,6 +2,71 @@
 
 An edge-fog-cloud IoT system for pedestrian crosswalk management using computer vision and Arduino.
 
+## Quick Start
+
+Follow these steps every time you want to run the system.
+
+### One-time setup (do this only once)
+
+**1. Install Python dependencies**
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+**2. Upload the Arduino sketch**
+- Open `arduino/crosswalk_controller/crosswalk_controller.ino` in Arduino IDE
+- Plug in your Arduino via USB
+- Select your board under **Tools > Board** and your port under **Tools > Port**
+- Click **Upload** and wait for "Done uploading"
+- Check **Tools > Serial Monitor** (115200 baud) — you should see `STATE=IDLE_GREEN`
+- Close the Serial Monitor when done
+
+**3. Set your COM port**
+- Open `services/serial_gateway.py` and set `SERIAL_PORT` to match your Arduino's port
+- On Windows, check **Device Manager → Ports (COM & LPT)** to find it (e.g. `COM7`)
+
+---
+
+### Running the system (do this every time)
+
+> **Before starting:** Make sure Docker Desktop is running and Arduino IDE's Serial Monitor is closed.
+
+**Step 1 — Start the MQTT broker** (in the `fog/` folder)
+```powershell
+cd fog
+docker compose up -d
+cd ..
+```
+
+**Step 2 — Start the Serial Gateway** (Terminal 1)
+```powershell
+.\.venv\Scripts\Activate.ps1
+python services/serial_gateway.py
+```
+You should see: `serial_gateway running on COMx...`
+
+**Step 3 — Start the Rules Engine** (Terminal 2)
+```powershell
+.\.venv\Scripts\Activate.ps1
+python services/rules_engine.py
+```
+You should see: `rules_engine running...`
+
+**Step 4 — Start the Vision Detector** (Terminal 3)
+```powershell
+.\.venv\Scripts\Activate.ps1
+python laptop_edge/vision_detector.py
+```
+A webcam window should open showing your camera feed.
+
+**Step 5 — Test it**
+- Wave or walk in front of the webcam → the LEDs should cycle: **Green → Yellow → Red + Walk → Green**
+- Or press the button on the Arduino to trigger the cycle manually
+
+---
+
 ## Architecture
 
 ```

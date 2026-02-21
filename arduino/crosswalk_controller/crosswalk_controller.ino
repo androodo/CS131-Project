@@ -56,7 +56,7 @@ void setup() {
 
 void loop() {
   // Manual request button (pressed = LOW due to INPUT_PULLUP)
-  if (digitalRead(PIN_BTN) == LOW) {
+  if (digitalRead(PIN_BTN) == HIGH) {
     requested = true;
     Serial.println("EVENT=BUTTON_REQUEST");
     delay(200); // Simple debounce

@@ -22,7 +22,7 @@ TOPIC_EVENT = "crosswalk/event"
 # Windows: COM3, COM4, etc. (check Device Manager)
 # macOS: /dev/tty.usbmodem* or /dev/tty.usbserial*
 # Linux: /dev/ttyUSB0 or /dev/ttyACM0
-SERIAL_PORT = "COM3"
+SERIAL_PORT = "COM7"
 BAUD = 115200
 
 
