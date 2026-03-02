@@ -10,8 +10,6 @@ Follow these steps every time you want to run the system.
 
 **1. Install Python dependencies**
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
@@ -42,21 +40,18 @@ cd ..
 
 **Step 2 — Start the Serial Gateway** (Terminal 1)
 ```powershell
-.\.venv\Scripts\Activate.ps1
 python services/serial_gateway.py
 ```
 You should see: `serial_gateway running on COMx...`
 
 **Step 3 — Start the Rules Engine** (Terminal 2)
 ```powershell
-.\.venv\Scripts\Activate.ps1
 python services/rules_engine.py
 ```
 You should see: `rules_engine running...`
 
 **Step 4 — Start the Vision Detector** (Terminal 3)
 ```powershell
-.\.venv\Scripts\Activate.ps1
 python laptop_edge/vision_detector.py
 ```
 A webcam window should open showing your camera feed.
